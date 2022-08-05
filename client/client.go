@@ -32,6 +32,7 @@ func Pull(url string, path string) {
 	misc, _ := ioutil.ReadAll(res.Body)
 
 	lmao = gohtml.Format(string(misc))
+	fmt.Println(lmao)
 
 	if path != "" {
 		fileWrite(path)
