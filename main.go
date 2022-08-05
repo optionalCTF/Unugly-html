@@ -1,28 +1,24 @@
 package main
 
 import (
-	"fmt"
+	"log"
 	"os"
+
+	"unugly/client"
 
 	"github.com/akamensky/argparse"
 )
 
-func init() {
+func main() {
 	parser := argparse.NewParser("HTML No Ugly", "No more ugly HTML...")
 
 	webAddr := parser.String("u", "url", &argparse.Options{Required: true, Help: "Supply a target URL to pull ugly HTML from.."})
-
+	outPath := parser.String("o", "outfile", &argparse.Options{Required: false, Help: "Supply an output file"})
 	err := parser.Parse(os.Args)
 
 	if err != nil {
-		fmt.Println(parser.Usage(err))
+		log.Fatal(parser.Usage(err))
 	}
-}
 
-func main() {
-	fmt.Println("reee")
-}
-
-func httpGet(url string) {
-
+	client.Pull(*webAddr, *outPath)
 }
