@@ -9,7 +9,7 @@ import (
 	"github.com/akamensky/argparse"
 )
 
-func main() {
+func init() {
 	parser := argparse.NewParser("HTML No Ugly", "No more ugly HTML...")
 
 	webAddr := parser.String("u", "url", &argparse.Options{Required: true, Help: "Supply a target URL to pull ugly HTML from.."})
@@ -17,8 +17,11 @@ func main() {
 	err := parser.Parse(os.Args)
 
 	if err != nil {
+		log.SetFlags(0)
 		log.Fatal(parser.Usage(err))
 	}
-
 	client.Pull(*webAddr, *outPath)
+}
+func main() {
+
 }
